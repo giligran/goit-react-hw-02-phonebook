@@ -1,6 +1,6 @@
 import React from 'react';
 import ContactForm from './ContactForm';
-import ContactList from 'components/ContactList';
+import ContactList from 'components/Phonebook/ContactList';
 class Phonebook extends React.Component {
   state = {
     contacts: [
@@ -19,14 +19,9 @@ class Phonebook extends React.Component {
       alert(`${name} already in contact list`);
       return;
     }
-    this.setState(
-      ({ contacts }) => ({
-        contacts: [...contacts, data],
-      }),
-      () => {
-        console.log(this.state.contacts);
-      }
-    );
+    this.setState(({ contacts }) => ({
+      contacts: [...contacts, data],
+    }));
   };
 
   deleteContact = id => {
