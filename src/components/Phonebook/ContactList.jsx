@@ -1,21 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types'; // ES6
+import { Button } from './Phonebook.styled';
 
-function ContactList({ users, filter, onDelete }) {
+function ContactList({ users, onDelete }) {
   return (
     <ul>
-      {users
-        .filter(({ name }) =>
-          name.toLowerCase().includes(filter.toLowerCase().trim())
-        )
-        .map(({ id, name, number }) => {
-          return (
-            <li key={id}>
-              {`${name}: ${number}`}
-              <button onClick={() => onDelete(id)}>Delete contact</button>
-            </li>
-          );
-        })}
+      {users.map(({ id, name, number }) => {
+        return (
+          <li key={id}>
+            {`${name}: ${number}`}
+            <Button onClick={() => onDelete(id)}>Delete contact</Button>
+          </li>
+        );
+      })}
     </ul>
   );
 }
@@ -28,7 +25,6 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     })
   ).isRequired,
-  filter: PropTypes.string,
   onDelete: PropTypes.func.isRequired,
 };
 

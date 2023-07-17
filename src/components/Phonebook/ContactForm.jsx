@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
+import { Input, Button, FormContact } from './Phonebook.styled';
 
 const INITIAL_STATE = {
   name: '',
@@ -9,6 +11,10 @@ const INITIAL_STATE = {
 class ContactForm extends React.Component {
   nameInputId = nanoid();
   numberInputId = nanoid();
+
+  static propType = {
+    onSubmit: PropTypes.func.isRequired,
+  };
 
   state = {
     name: '',
@@ -36,9 +42,9 @@ class ContactForm extends React.Component {
   render() {
     const { name, number } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
+      <FormContact onSubmit={this.handleSubmit}>
         <label htmlFor={this.nameInputId}>name</label>
-        <input
+        <Input
           id={this.nameInputId}
           type="text"
           name="name"
@@ -49,7 +55,7 @@ class ContactForm extends React.Component {
           required
         />
         <label htmlFor={this.numberInputId}>number</label>
-        <input
+        <Input
           id={this.numberInputId}
           type="tel"
           name="number"
@@ -59,8 +65,8 @@ class ContactForm extends React.Component {
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
         />
-        <button>Add contact</button>
-      </form>
+        <Button>Add contact</Button>
+      </FormContact>
     );
   }
 }

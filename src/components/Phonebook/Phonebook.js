@@ -1,6 +1,8 @@
 import React from 'react';
 import ContactForm from './ContactForm';
 import ContactList from 'components/Phonebook/ContactList';
+import Filter from './Filter';
+import { Container, ContactsContaier } from './Phonebook.styled';
 class Phonebook extends React.Component {
   state = {
     contacts: [
@@ -35,23 +37,27 @@ class Phonebook extends React.Component {
     this.setState({ [name]: value.trim() });
   };
 
+  filterList = () => {
+    const { contacts, filter } = this.state;
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(filter.toLowerCase().trim())
+    );
+  };
+
   render() {
     const { contacts, filter } = this.state;
     return (
-      <>
+      <Container>
         <ContactForm onSubmit={this.formSubmitHandler} />
-        <h2>Contacts</h2>
-
-        <label>
-          Find contacts by name
-          <input name="filter" onChange={this.changeInput}></input>
-        </label>
-        <ContactList
-          users={contacts}
-          filter={filter}
-          onDelete={this.deleteContact}
-        />
-      </>
+        <ContactsContaier>
+          <h2>Contacts</h2>
+          <Filter filter={this.changeInput} />
+          <ContactList
+            users={this.filterList()}
+            onDelete={this.deleteContact}
+          />
+        </ContactsContaier>
+      </Container>
     );
   }
 }
