@@ -45,7 +45,6 @@ class Phonebook extends React.Component {
   };
 
   render() {
-    const { contacts, filter } = this.state;
     return (
       <Container>
         <ContactForm onSubmit={this.formSubmitHandler} />
